@@ -8,7 +8,10 @@
   "name1",
   "dob",
   "doj",
-  "mobile_number"
+  "mobile_number",
+  "email",
+  "photo",
+  "age"
  ],
  "fields": [
   {
@@ -30,11 +33,26 @@
    "fieldname": "mobile_number",
    "fieldtype": "Phone",
    "label": "Mobile Number"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Attach",
+   "label": "Photo"
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Int",
+   "label": "Age"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-03-03 16:01:29.775043",
+ "modified": "2025-03-04 13:44:00.045865",
  "modified_by": "Administrator",
  "module": "Xlayer Hrms",
  "name": "HRMS Trail",
