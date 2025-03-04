@@ -6,8 +6,6 @@
  "engine": "InnoDB",
  "field_order": [
   "name1",
-  "dob",
-  "doj",
   "mobile_number",
   "email",
   "photo",
@@ -18,16 +16,6 @@
    "fieldname": "name1",
    "fieldtype": "Data",
    "label": "Name"
-  },
-  {
-   "fieldname": "dob",
-   "fieldtype": "Date",
-   "label": "DOB"
-  },
-  {
-   "fieldname": "doj",
-   "fieldtype": "Date",
-   "label": "DOJ"
   },
   {
    "fieldname": "mobile_number",
@@ -52,7 +40,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-03-04 13:44:00.045865",
+ "modified": "2025-03-04 16:39:38.643842",
  "modified_by": "Administrator",
  "module": "Xlayer Hrms",
  "name": "HRMS Trail",
