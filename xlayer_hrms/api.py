@@ -20,10 +20,12 @@ def login(usr, pwd):
 
     except frappe.exceptions.AuthenticationError:
         frappe.clear_messages()
-        frappe.local.response["message"] = {
-            "success_key": 0,
-            "message": "Authentication Error!"
-        }
+        frappe.response["status"] = False
+        frappe.response["message"] = "Authentication Error!"
+        # frappe.local.response["message"] = {
+        #     "success_key": 0,
+        #     "message": "Authentication Error!"
+        # }
         return
 
     api_key, api_secret = generate_keys(frappe.session.user)
