@@ -42,7 +42,6 @@ def login(usr, pwd):
             "email": user.email,
             "full_name": frappe.utils.get_fullname(user.full_name)
         },
-        "home_page": "/app"
     }
     frappe.response.pop("home_page", None)
     frappe.response.pop("full_name", None)
