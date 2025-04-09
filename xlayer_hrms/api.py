@@ -40,10 +40,12 @@ def login(usr, pwd):
         "user": {
             "username": user.username,
             "email": user.email,
-            "full_name": frappe.utils.get_fullname(user.username)
+            "full_name": frappe.utils.get_fullname(user.full_name)
         },
         "home_page": "/app"
     }
+    frappe.response.pop("home_page", None)
+    frappe.response.pop("full_name", None)
 def generate_keys(user):
     user_details = frappe.get_doc('User', user)
 
@@ -96,8 +98,7 @@ def generate_keys(user):
 #         "home_page": "/app",
         
 #     }
-#     frappe.response.pop("home_page", None)
-#     frappe.response.pop("full_name", None)
+#     
 
 
 
