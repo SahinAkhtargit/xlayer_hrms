@@ -40,7 +40,7 @@ def create_branch(branch, custom_status="Active"):
         exists = frappe.db.exists("Branch", {"branch": branch})
         if exists:
             frappe.response["status"] = False
-            frappe.response["message"] = "Branch 'Pune' already exists"
+            frappe.response["message"] = "Branch already exists"
             frappe.response["data"] = None
             return
 
