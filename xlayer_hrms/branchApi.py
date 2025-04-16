@@ -4,7 +4,11 @@ from frappe import _
 def authenticate():
     """Check if current session is authenticated."""
     if not frappe.session.user or frappe.session.user == "Guest":
+        frappe.response["hi"]="I'm here"
         frappe.throw(_("Authentication required"), frappe.AuthenticationError)
+        # frappe.response["status"]=False
+        # frappe.response['message']="Not Authorise"
+        # frappe.response["data"]=None
 
 @frappe.whitelist(allow_guest=False)
 def get_branch(branch=None):

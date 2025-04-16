@@ -58,7 +58,7 @@ def get_all_employees():
         frappe.throw(_("Unauthorized access"), frappe.PermissionError)
 
     try:
-        employees = frappe.get_all("Employee", fields=["name", "employee_name", "employee_number", "status", "company", "branch", "department", "designation"])
+        employees = frappe.get_all("Employee", fields=["*"])
 
         frappe.response["status"] = True
         frappe.response["message"] = "Employees fetched successfully"
