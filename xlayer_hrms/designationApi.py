@@ -20,7 +20,7 @@ def get_designation(name=None):
             frappe.response['message'] = "Designation fetched"
             frappe.response["data"] = designation.as_dict()
         else:
-            designations = frappe.get_all("Designation", fields=["name", "designation_name", "custom_status"])
+            designations = frappe.get_all("Designation", filters={"custom_status": "Active"}, fields=["name", "designation_name", "custom_status"])
             frappe.response["status"] = True
             frappe.response['message'] = "All designations fetched"
             frappe.response["data"] = designations
