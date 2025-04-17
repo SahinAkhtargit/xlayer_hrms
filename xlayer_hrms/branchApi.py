@@ -12,7 +12,7 @@ def authenticate():
 
 # @frappe.whitelist(allow_guest=False)
 @frappe.whitelist()
-def get_branch(branch=None):
+def get_branch(branch=None, status=None):
     # authenticate()
     try:
         if branch:
@@ -20,6 +20,12 @@ def get_branch(branch=None):
             frappe.response["status"]=True
             frappe.response['message']="Branch fetched"
             frappe.response["data"]=Branch.as_dict()
+            return
+        elif status:
+            branches = frappe.get_all("Branch", filters={"custom_status": status}, fields=["name", "branch", "custom_status"])
+            frappe.response["status"]=True
+            frappe.response['message']="All branches fetched"
+            frappe.response["data"]=branches
             return
         else:
             branches = frappe.get_all("Branch", fields=["name", "branch", "custom_status"])

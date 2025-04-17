@@ -11,7 +11,7 @@ def authenticate():
 
 
 @frappe.whitelist(allow_guest=False)
-def get_designation(name=None):
+def get_designation(name=None, status=None):
     authenticate()
     try:
         if name:
@@ -19,6 +19,11 @@ def get_designation(name=None):
             frappe.response["status"] = True
             frappe.response['message'] = "Designation fetched"
             frappe.response["data"] = designation.as_dict()
+        elif status:
+            designations = frappe.get_all("Designation", filters={"custom_status": status}, fields=["name", "designation_name", "custom_status"])
+            frappe.response["status"] = True
+            frappe.response['message'] = "All designations fetched"
+            frappe.response["data"] = designations
         else:
             designations = frappe.get_all("Designation", fields=["name", "designation_name", "custom_status"])
             frappe.response["status"] = True

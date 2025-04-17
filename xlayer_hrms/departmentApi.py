@@ -11,7 +11,7 @@ def authenticate():
 
 
 @frappe.whitelist(allow_guest=False)
-def get_department(name=None):
+def get_department(name=None, status=None):
     authenticate()
     try:
         if name:
@@ -19,6 +19,15 @@ def get_department(name=None):
             frappe.response["status"] = True
             frappe.response['message'] = "Department fetched"
             frappe.response["data"] = department.as_dict()
+        elif status:
+            departments = frappe.get_all(
+                "Department",
+                filters={"custom_status": status},
+                fields=["name", "department_name", "parent_department", "custom_status"]
+            )
+            frappe.response["status"] = True
+            frappe.response['message'] = "Departments fetched"
+            frappe.response["data"] = departments
         else:
             departments = frappe.get_all(
                 "Department",
