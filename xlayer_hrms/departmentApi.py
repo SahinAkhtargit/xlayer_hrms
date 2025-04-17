@@ -22,7 +22,6 @@ def get_department(name=None):
         else:
             departments = frappe.get_all(
                 "Department",
-                filters={"custom_status": "Active"},
                 fields=["name", "department_name", "parent_department", "custom_status"]
             )
             frappe.response["status"] = True

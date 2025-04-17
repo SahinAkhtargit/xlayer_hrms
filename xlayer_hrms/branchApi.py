@@ -2,18 +2,18 @@ import frappe
 from frappe import _
 
 def authenticate():
-    """Check if current session is authenticated."""
     if not frappe.session.user or frappe.session.user == "Guest":
         frappe.response["status"]=False
         frappe.response['message']="Not Authorise"
         frappe.response["data"]=None
-        frappe.throw(_("Authentication required"), frappe.AuthenticationError)
+        # frappe.throw(_("Authentication required"), frappe.AuthenticationError)
 
   
 
-@frappe.whitelist(allow_guest=False)
+# @frappe.whitelist(allow_guest=False)
+@frappe.whitelist()
 def get_branch(branch=None):
-    authenticate()
+    # authenticate()
     try:
         if branch:
             Branch = frappe.get_doc("Branch", branch)
@@ -22,7 +22,7 @@ def get_branch(branch=None):
             frappe.response["data"]=Branch.as_dict()
             return
         else:
-            branches = frappe.get_all("Branch", filters={"custom_status": "Active"}, fields=["name", "branch", "custom_status"])
+            branches = frappe.get_all("Branch", fields=["name", "branch", "custom_status"])
             frappe.response["status"]=True
             frappe.response['message']="All branches fetched"
             frappe.response["data"]=branches
