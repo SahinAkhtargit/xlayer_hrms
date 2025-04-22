@@ -22,7 +22,7 @@ def get_department(name=None, status=None):
         elif status:
             departments = frappe.get_all(
                 "Department",
-                filters={"custom_status": status},
+                filters={"custom_status": status, "department_name": ("!=", "All Departments")},
                 fields=["name", "department_name", "parent_department", "custom_status"]
             )
             frappe.response["status"] = True
@@ -31,10 +31,11 @@ def get_department(name=None, status=None):
         else:
             departments = frappe.get_all(
                 "Department",
+                filters={"department_name": ("!=", "All Departments")},
                 fields=["name", "department_name", "parent_department", "custom_status"]
             )
             frappe.response["status"] = True
-            frappe.response['message'] = "Active departments fetched"
+            frappe.response['message'] = "All departments fetched"
             frappe.response["data"] = departments
     except frappe.DoesNotExistError:
         frappe.response["status"] = False
