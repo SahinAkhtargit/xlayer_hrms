@@ -26,16 +26,12 @@ def upload_user_image(user_email, image_base64, filename):
             return
 
         user = frappe.get_doc("User", user_email)
-
-        # Delete existing image if exists
         if user.user_image:
             try:
                 old_file_doc = frappe.get_doc("File", {"file_url": user.user_image})
                 old_file_doc.delete()
             except frappe.DoesNotExistError:
                 pass
-
-        # Decode and save new image
         image_bytes = base64.b64decode(image_base64)
         file_doc = save_file(
             fname=f"{uuid.uuid4()}_{filename}",
@@ -45,8 +41,6 @@ def upload_user_image(user_email, image_base64, filename):
             folder="Home",
             is_private=1
         )
-
-        # Update user profile image
         user.user_image = file_doc.file_url
         user.save(ignore_permissions=True)
 
