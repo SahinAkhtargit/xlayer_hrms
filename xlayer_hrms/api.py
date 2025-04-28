@@ -105,7 +105,7 @@ def get_User(username=None, status=None):
             frappe.response["data"]=username.as_dict()
             return
         else:
-            users = frappe.get_all("User", fields=["full_name", "role_profile_name", "language","phone","mobile_no","email","enabled","time_zone","user_image"])
+            users = frappe.get_all("User", fields=["username","full_name", "role_profile_name", "language","phone","mobile_no","email","enabled","time_zone","user_image"])
             frappe.response["status"]=True
             frappe.response['message']="All Users fetched"
             frappe.response["data"]=users
@@ -120,3 +120,40 @@ def get_User(username=None, status=None):
         frappe.response['message']=str(e)
         frappe.response["data"]=None
         return
+
+@frappe.whitelist(allow_guest=False)
+def update_user(email, **kwargs):
+    # authenticate()  # Uncomment if needed
+    try:
+        if not frappe.db.exists("User", email):
+            frappe.response["status"] = False
+            frappe.response["message"] = "User not found"
+            frappe.response["data"] = None
+            return
+
+        doc = frappe.get_doc("User", email)
+
+        # List of fields that are safe to update via API
+        allowed_fields = [
+            "full_name", "phone", "mobile_no", "language",
+            "enabled", "time_zone", "user_image", "role_profile_name"
+        ]
+
+        for key in allowed_fields:
+            if key in kwargs:
+                value = kwargs.get(key)
+                # Handle type conversion if necessary
+                if key == "enabled":
+                    value = int(value)
+                setattr(doc, key, value)
+
+        doc.save(ignore_permissions=True)
+
+        frappe.response["status"] = True
+        frappe.response["message"] = "User updated"
+        frappe.response["data"] = doc.as_dict()
+
+    except Exception as e:
+        frappe.response["status"] = False
+        frappe.response["message"] = str(e)
+        frappe.response["data"] = None
